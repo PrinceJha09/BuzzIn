@@ -1,5 +1,5 @@
 import express from 'express'
-import { getChatMessages, sendMessage, sseController } from '../controllers/messagesController.js';
+import { getChatMessages, sendMessage, sseController, sendBuzzbeeMessage } from '../controllers/messagesController.js';
 import { upload } from '../configs/multer.js';
 import { protect } from '../middlewares/auth.js';
 
@@ -7,7 +7,7 @@ const messageRouter = express.Router();
 
 messageRouter.get('/:userId', sseController)
 messageRouter.post('/send', upload.single('image'), protect, sendMessage)
-
 messageRouter.post('/get', protect, getChatMessages)
+messageRouter.post('/buzzbee', protect, sendBuzzbeeMessage)
 
 export default messageRouter

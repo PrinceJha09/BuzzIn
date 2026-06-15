@@ -19,6 +19,26 @@ const Messages = () => {
 
         {/*Connected Users */}
         <div className='flex flex-col gap-3'>
+          
+          {/* BUZZBEE AI Chatbot */}
+          <div className='max-w-xl flex gap-5 p-6 bg-white shadow rounded-md border-l-4 border-indigo-500'>
+            <img src="/buzzbee.svg" alt="" className='rounded-full size-12 mx-auto bg-indigo-50 p-0.5 border border-indigo-100'/>
+            <div className='flex-1'>
+              <div className='flex items-center gap-2'>
+                <p className='font-medium text-slate-700'>BUZZBEE</p>
+                <span className='px-2 py-0.5 text-[9px] font-bold bg-gradient-to-r from-yellow-400 to-amber-500 text-white rounded-full uppercase tracking-wider'>AI Bot</span>
+              </div>
+              <p className='text-slate-500'>@buzzbee</p>
+              <p className='text-sm text-gray-600'>BuzzIn AI Assistant 🐝</p>
+            </div>
+
+            <div className='flex flex-col gap-2 mt-4'>
+              <button onClick={()=>navigate(`/messages/buzzbee`)} className='size-10 flex items-center justify-center text-sm rounded bg-indigo-50 hover:bg-indigo-100 active:scale-95 transition text-indigo-600 cursor-pointer border border-indigo-100'>
+                <MessageSquare className='w-4 h-4'/>
+              </button>
+            </div>
+          </div>
+
           {connections.map((user)=>(
             <div key={user._id} className='max-w-xl flex gap-5 p-6 bg-white shadow rounded-md'>
               <img src={user.profile_picture} alt="" className='rounded-full size-12 mx-auto'/>

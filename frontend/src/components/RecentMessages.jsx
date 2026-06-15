@@ -16,6 +16,7 @@ const RecentMessages = () => {
             const {data}= await api.get('/api/user/recent-messages', {
                 headers: {Authorization: `Bearer ${token}`}
             })
+            console.log({data: data.messages})
             if(data.success){
                 //Group messages by sender and get the latest message
                 const groupedMessages = data.messages.reduce((acc, message)=>{
@@ -33,9 +34,11 @@ const RecentMessages = () => {
                 setMessages(sortedMessages)
             }else{
                 toast.error(data.message)
+                console.log(data)
             }
         } catch (error) {
             toast.error(error.message)
+            console.log({error: error})
         }
     }
 

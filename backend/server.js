@@ -10,9 +10,33 @@ import userRouter from './routes/userRoutes.js';
 import postRouter from './routes/postRoutes.js';
 import storyRouter from './routes/storyRoutes.js';
 import messageRouter from './routes/messageRoutes.js';
+import User from './models/User.js';
 
 const app=express();
 await connectDB();
+
+const seedBuzzbee = async () => {
+    try {
+        const buzzbee = await User.findById('buzzbee');
+        if (!buzzbee) {
+            await User.create({
+                _id: 'buzzbee',
+                email: 'buzzbee@buzzin.ai',
+                full_name: 'BUZZBEE',
+                username: 'buzzbee',
+                bio: 'BuzzIn AI Assistant 🐝',
+                profile_picture: '/buzzbee.svg',
+                cover_photo: '',
+                location: 'BuzzIn Hive'
+            });
+            console.log('Seeded BUZZBEE chatbot user successfully!');
+        }
+    } catch (error) {
+        console.error('Error seeding BUZZBEE chatbot:', error);
+    }
+};
+await seedBuzzbee();
+
 
 app.use(express.json());
 app.use(cors());

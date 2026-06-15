@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <linearGradient id="body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="wing-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#BAE6FD" stop-opacity="0.5" />
+    </linearGradient>
+  </defs>
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="46" fill="url(#bg-grad)" />
+  <!-- Hexagon Grid Motif (Subtle AI/Hive vibe) -->
+  <path d="M50 25 L58 30 L58 40 L50 45 L42 40 L42 30 Z" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.15" />
+  <path d="M50 55 L58 60 L58 70 L50 75 L42 70 L42 60 Z" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.15" />
+  <path d="M68 40 L76 45 L76 55 L68 60 L60 55 L60 45 Z" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.15" />
+  <path d="M32 40 L40 45 L40 55 L32 60 L24 55 L24 45 Z" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.15" />
+  <!-- Wings -->
+  <!-- Left Wing -->
+  <ellipse cx="34" cy="42" rx="14" ry="8" transform="rotate(-30 34 42)" fill="url(#wing-grad)" stroke="#FFFFFF" stroke-width="1.5" />
+  <!-- Right Wing -->
+  <ellipse cx="66" cy="42" rx="14" ry="8" transform="rotate(30 66 42)" fill="url(#wing-grad)" stroke="#FFFFFF" stroke-width="1.5" />
+  <!-- Bee Body -->
+  <rect x="38" y="38" width="24" height="32" rx="12" fill="url(#body-grad)" />
+  <!-- Stripes (Black) -->
+  <rect x="38" y="46" width="24" height="4" fill="#1E293B" />
+  <rect x="38" y="56" width="24" height="4" fill="#1E293B" />
+  <!-- Stinger -->
+  <path d="M50 70 L47 77 L53 77 Z" fill="#1E293B" />
+  <!-- Eyes -->
+  <circle cx="45" cy="44" r="2.5" fill="#1E293B" />
+  <circle cx="55" cy="44" r="2.5" fill="#1E293B" />
+  <path d="M44 42 Q45 40 46 42" fill="none" stroke="#1E293B" stroke-width="1" />
+  <path d="M54 42 Q55 40 56 42" fill="none" stroke="#1E293B" stroke-width="1" />
+  <!-- Smile -->
+  <path d="M47 49 Q50 52 53 49" fill="none" stroke="#1E293B" stroke-width="1.5" stroke-linecap="round" />
+  <!-- Antennae -->
+  <path d="M46 38 Q42 32 38 33" fill="none" stroke="#1E293B" stroke-width="1.5" stroke-linecap="round" />
+  <circle cx="37" cy="33" r="1.5" fill="#1E293B" />
+  <path d="M54 38 Q58 32 62 33" fill="none" stroke="#1E293B" stroke-width="1.5" stroke-linecap="round" />
+  <circle cx="63" cy="33" r="1.5" fill="#1E293B" />
+</svg>

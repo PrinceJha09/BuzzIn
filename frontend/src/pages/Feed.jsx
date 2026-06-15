@@ -25,9 +25,11 @@ const Feed = () => {
         setFeeds(data.posts)
       }else{
         toast.error(data.message)
+        console.log(data)
       }
     } catch (error) {
       toast.error(error.message)
+      console.log(error)
     }
     setLoading(false)
   }

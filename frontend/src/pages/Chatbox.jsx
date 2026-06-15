@@ -33,6 +33,47 @@ const Chatbox = () => {
     try {
       if(!text && !image)return
       const token = await getToken()
+
+      if (userId === 'buzzbee') {
+        const userMsg = {
+          _id: 'temp-' + Date.now(),
+          from_user_id: 'me',
+          to_user_id: 'buzzbee',
+          text: text,
+          message_type: 'text',
+          createdAt: new Date().toISOString()
+        }
+        dispatch(addMessage(userMsg))
+        const tempText = text
+        setText('')
+        setImage(null)
+
+        // Build history context of this session (excluding current user message as it is sent as main prompt)
+        const history = messages.map(m => ({
+          role: m.to_user_id === 'buzzbee' ? 'user' : 'model',
+          text: m.text
+        }))
+
+        const {data} = await api.post('/api/message/buzzbee', { text: tempText, history }, {
+          headers: {Authorization: `Bearer ${token}`}
+        })
+
+        if(data.success){
+          const botMsg = {
+            _id: 'reply-' + Date.now(),
+            from_user_id: 'buzzbee',
+            to_user_id: 'me',
+            text: data.reply,
+            message_type: 'text',
+            createdAt: new Date().toISOString()
+          }
+          dispatch(addMessage(botMsg))
+        } else {
+          throw new Error(data.message)
+        }
+        return
+      }
+
       const formData = new FormData()
       formData.append('to_user_id',userId)
       formData.append('text',text)
@@ -54,7 +95,15 @@ const Chatbox = () => {
   }
 
   useEffect(()=>{
-    if(connections.length>0){
+    if (userId === 'buzzbee') {
+      setUser({
+        _id: 'buzzbee',
+        full_name: 'BUZZBEE',
+        username: 'buzzbee',
+        profile_picture: '/buzzbee.svg',
+        bio: 'BuzzIn AI Assistant 🐝'
+      })
+    } else if(connections.length>0){
       const user = connections.find(connection => connection._id === userId)
       setUser(user)
     }
@@ -102,14 +151,27 @@ const Chatbox = () => {
 
       <div className='px-4 '>
           <div className='flex items-center gap-3 pl-5 p-1.5 bg-white w-full max-w-xl mx-auto border border-gray-200 shadow rounded-full mb-5 '>
-            <input type="text" className='flex-1 outline-none text-slate-700' placeholder='Type a message... ' onKeyDown={(e)=>e.key ==='Enter' && sendMessage()} onChange={(e)=>setText(e.target.value)} value={text} />
+            <input 
+              type="text" 
+              className='flex-1 outline-none text-slate-700' 
+              placeholder={userId === 'buzzbee' ? 'Ask BUZZBEE about your profile or chat...' : 'Type a message... '} 
+              onKeyDown={(e)=>e.key ==='Enter' && sendMessage()} 
+              onChange={(e)=>setText(e.target.value)} 
+              value={text} 
+            />
 
-            <label htmlFor="image">
-              {
-                image ? <img src={URL.createObjectURL(image)} alt="" className='h-8 rounded'/> : <ImageIcon className='size-7 text-gray-400 cursor-pointer'/>
-              }
-              <input type="file" id='image' accept="image/*" hidden onChange={(e)=>setImage(e.target.files[0])}/>
-            </label>
+            {userId !== 'buzzbee' ? (
+              <label htmlFor="image">
+                {
+                  image ? <img src={URL.createObjectURL(image)} alt="" className='h-8 rounded'/> : <ImageIcon className='size-7 text-gray-400 cursor-pointer'/>
+                }
+                <input type="file" id='image' accept="image/*" hidden onChange={(e)=>setImage(e.target.files[0])}/>
+              </label>
+            ) : (
+              <div className='text-xs text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full border border-gray-100 font-medium select-none'>
+                Text Only
+              </div>
+            )}
 
             <button onClick={sendMessage} className='bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 p-2 rounded-full active:scale-95 text-white cursor-pointer '>
               <SendHorizonal size={18}/>
